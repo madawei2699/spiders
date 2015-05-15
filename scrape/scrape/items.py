@@ -1,0 +1,13 @@
+# -*- coding: utf-8 -*-
+
+# Define here the models for your scraped items
+
+import scrapy
+
+
+class FBItem(scrapy.Item):
+    uid = scrapy.Field()
+    talking_about = scrapy.Field()
+    visit = scrapy.Field()
+    total_likes = scrapy.Field()
+    new_likes = scrapy.Field()
