@@ -1,13 +1,9 @@
 var system = require('system');
 var args = system.args;
 
-var urls = [
-    'https://www.facebook.com/coach/likes',
-    'https://www.facebook.com/timberland/likes',
-    'https://www.facebook.com/Underarmour/likes'
-];
-
 var fs = require('fs');
+
+var uids = fs.read('/home/gjoliver/uid-list-fb').split('\n');
 
 var maybePadZero = function(num) {
     var str = '' + num;
@@ -15,8 +11,9 @@ var maybePadZero = function(num) {
 }
 var epoch = args[1];
 
-var processUrl = function(url, next) {
+var processUid = function(uid, next) {
     var page = require('webpage').create();
+    var url = 'https://www.facebook.com/' + uid + '/likes';
     page.open(url, function (status) {
         if (status === 'fail') {
             console.log('Failed to fetch page: ' + url);
@@ -26,11 +23,8 @@ var processUrl = function(url, next) {
         window.setTimeout(function () {
             console.log('Saving page: ' + url);
 
-            var uid = url
-                .replace('https://www.facebook.com/', '')
-                .replace('/likes', '')
-                .toLowerCase();
-            fs.write('/home/gjoliver/archive/fb/' + epoch + '/' + uid,
+            fs.write('/home/gjoliver/archive/fb/' +
+                     epoch + '/' + uid.toLowerCase(),
                      page.content,
                      'w');
             page.close();
@@ -40,15 +34,15 @@ var processUrl = function(url, next) {
         // actually render.
         // This delay also serves as a protection so we are not easily
         // detected as a scraper.
-        }, 3000 + (7000 * Math.random()));
+        }, 3000 + (12000 * Math.random()));
     });
 }
 
 var crawlNext = function() {
-    if (urls.length > 0) {
-        var url = urls[0];
-        urls.splice(0, 1);
-        processUrl(url, crawlNext);
+    if (uids.length > 0) {
+        var uid = uids[0];
+        uids.splice(0, 1);
+        processUid(uid, crawlNext);
     } else {
         phantom.exit();
     }
