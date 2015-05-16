@@ -17,6 +17,7 @@ var processUid = function(uid, next) {
     page.open(url, function (status) {
         if (status === 'fail') {
             console.log('Failed to fetch page: ' + url);
+            next.apply();
             return;
         }
 
