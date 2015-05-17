@@ -11,3 +11,9 @@ class FBItem(scrapy.Item):
     visit = scrapy.Field()
     total_likes = scrapy.Field()
     new_likes = scrapy.Field()
+
+
+class WBItem(scrapy.Item):
+    uid = scrapy.Field()
+    following = scrapy.Field()
+    followers = scrapy.Field()
