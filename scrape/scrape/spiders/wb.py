@@ -46,8 +46,8 @@ class WBPageSpider(scrapy.Spider):
                            for f in os.listdir(ARCHIVE_PATH + epoch)]
 
     def parse(self, response):
-        item = FBItem(
+        item = WBItem(
             uid=response.url.split('/')[-1],
-            Following=extractBrother(response, '关注'),
-            Followers=extractBrother(response, '粉丝'))
+            following=extractBrother(response, '关注'),
+            followers=extractBrother(response, '粉丝'))
         yield item
