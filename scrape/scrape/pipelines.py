@@ -16,11 +16,11 @@ class FBDBPipeline(object):
             return
 
         self.should_apply = True
-        self.db = MySQLdb.connnect(host=spider.db_host,
-                                   db='data',
-                                   user=spider.db_user,
-                                   passwd=spider.db_passwd,
-                                   charset='utf8')
+        self.db = MySQLdb.connect(host=spider.db_host,
+                                  db='data',
+                                  user=spider.db_user,
+                                  passwd=spider.db_passwd,
+                                  charset='utf8')
         scrapy.log.msg('DB connected.', scrapy.log.INFO)
 
     def close_spider(self, spider):
@@ -65,11 +65,11 @@ class WBDBPipeline(object):
             return
 
         self.should_apply = True
-        self.db = MySQLdb.connnect(host=spider.db_host,
-                                   db='data',
-                                   user=spider.db_user,
-                                   passwd=spider.db_passwd,
-                                   charset='utf8')
+        self.db = MySQLdb.connect(host=spider.db_host,
+                                  db='data',
+                                  user=spider.db_user,
+                                  passwd=spider.db_passwd,
+                                  charset='utf8')
         scrapy.log.msg('DB connected.', scrapy.log.INFO)
 
     def close_spider(self, spider):

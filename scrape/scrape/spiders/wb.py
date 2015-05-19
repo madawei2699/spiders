@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from scrape.items import WBItem
 import datetime
 import os
@@ -47,5 +49,5 @@ class WBPageSpider(scrapy.Spider):
         item = FBItem(
             uid=response.url.split('/')[-1],
             Following=extractBrother(response, '关注'),
-            Followers=extractBrother(response, '粉丝'),
+            Followers=extractBrother(response, '粉丝'))
         yield item
