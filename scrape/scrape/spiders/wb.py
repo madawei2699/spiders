@@ -48,6 +48,6 @@ class WBPageSpider(scrapy.Spider):
     def parse(self, response):
         item = WBItem(
             uid=response.url.split('/')[-1],
-            following=extractBrother(response, '关注'),
-            followers=extractBrother(response, '粉丝'))
+            following=extractBrother(response, u'关注'),
+            followers=extractBrother(response, u'粉丝'))
         yield item

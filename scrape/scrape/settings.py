@@ -12,7 +12,8 @@ BOT_NAME = 'xiaobai'
 
 SPIDER_MODULES = ['scrape.spiders']
 NEWSPIDER_MODULE = 'scrape.spiders'
-ITEM_PIPELINES = {'scrape.pipelines.FBDBPipeline': 100}
+ITEM_PIPELINES = {'scrape.pipelines.FBDBPipeline': 100,
+                  'scrape.pipelines.WBDBPipeline': 200}
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'crawl (+http://www.yourdomain.com)'
