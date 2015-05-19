@@ -12,6 +12,11 @@ var maybePadZero = function(num) {
 var epoch = args[1];
 
 var processUid = function(uid, next) {
+    if (uid.replace(/ /g, '') == '') {
+        next.apply();
+        return;
+    }
+
     var page = require('webpage').create();
     var url = 'https://www.facebook.com/' + uid + '/likes';
     page.open(url, function (status) {
