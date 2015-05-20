@@ -17,3 +17,8 @@ class WBItem(scrapy.Item):
     uid = scrapy.Field()
     following = scrapy.Field()
     followers = scrapy.Field()
+
+
+class NDUOItem(scrapy.Item):
+    uid = scrapy.Field()
+    downloads = scrapy.Field()
