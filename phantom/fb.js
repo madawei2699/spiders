@@ -5,10 +5,6 @@ var fs = require('fs');
 
 var uids = fs.read('/home/gjoliver/urls/uid-list-fb').split('\n');
 
-var maybePadZero = function(num) {
-    var str = '' + num;
-    return str.length < 2 ? '0' + str : str;
-}
 var epoch = args[1];
 
 var processUid = function(uid, next) {

@@ -5,12 +5,8 @@ var fs = require('fs');
 
 var uids = fs.read('/home/gjoliver/urls/uid-list-wb').split('\n');
 
-var maybePadZero = function(num) {
-    var str = '' + num;
-    return str.length < 2 ? '0' + str : str;
-}
-
 var epoch = args[1];
+
 var USER_AGENT =
     'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 ' +
     '(KHTML, like Gecko) Chrome/42.0.2311.90 Safari/537.36 ' +
