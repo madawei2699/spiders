@@ -3,7 +3,7 @@ var args = system.args;
 
 var fs = require('fs');
 
-var uids = fs.read('/home/gjoliver/uid-list-fb').split('\n');
+var uids = fs.read('/home/gjoliver/urls/uid-list-fb').split('\n');
 
 var maybePadZero = function(num) {
     var str = '' + num;
