@@ -7,6 +7,11 @@ var urls = fs.read('/home/gjoliver/urls/retailmenot-url').split('\n');
 
 var epoch = args[1];
 
+var USER_AGENT =
+    'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 ' +
+    '(KHTML, like Gecko) Chrome/42.0.2311.90 Safari/537.36 ' +
+    'OPR/29.0.1795.47';
+
 var processUrl = function(url, next) {
     if (url.replace(/ /g, '') == '') {
         next.apply();
@@ -14,6 +19,7 @@ var processUrl = function(url, next) {
     }
 
     var page = require('webpage').create();
+    page.settings.userAgent = USER_AGENT;
     page.open('http://www.retailmenot.com/view/' + url, function (status) {
         if (status === 'fail') {
             console.log('Failed to fetch page: ' + url);
@@ -32,11 +38,13 @@ var processUrl = function(url, next) {
             page.close();
 
             next.apply();
-        // Wait randomly between 3 to 10 seconds for the page to
+        // Wait randomly between 1 to 3 mins for the page to
         // actually render.
+        // Use especially longer timeout since retailmenot seems to have
+        // pretty rigorous detection on bots.
         // This delay also serves as a protection so we are not easily
         // detected as a scraper.
-        }, 3000 + (12000 * Math.random()));
+        }, 60000 + (120000 * Math.random()));
     });
 }
 
