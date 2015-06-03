@@ -150,3 +150,54 @@ class NDUODBPipeline(object):
         self.db.commit()
 
         return item
+
+
+class RETAILMENOTDBPipeline(object):
+    def __init__(self):
+        self.db = None
+        self.should_apply = False
+
+    def open_spider(self, spider):
+        if spider.name != 'RETAILMENOT':
+            return
+
+        self.should_apply = True
+        self.db = MySQLdb.connect(host=spider.db_host,
+                                  db='data',
+                                  user=spider.db_user,
+                                  passwd=spider.db_passwd,
+                                  charset='utf8')
+        scrapy.log.msg('DB connected.', scrapy.log.INFO)
+
+    def close_spider(self, spider):
+        if not self.should_apply or not self.db:
+            return
+
+        # Just in case there is anything un-committed.
+        self.db.commit()
+        self.db.close()
+
+    def process_item(self, item, spider):
+        if not self.should_apply or not self.db:
+            return item
+
+        print 'Saving deal:', item['offer_desc'], ', from: ', item['site']
+        print 'Timestamp: ', spider.timestamp
+
+        print item
+
+        #query = """
+        #    INSERT INTO RETAILMENOT
+        #    (UID, Timestamp, Site, Offer_Type, Offer_Desc, Used_Today)
+        #    VALUES
+        #    ("%s", %d, "%s", "%s", "%s", %d);""" % (
+        #        item['uid'], spider.timestamp, item['site'],
+        #        item['offer_type'], item['offer_desc'], item['used_today'])
+
+        #cursor = self.db.cursor()
+        #cursor.execute(query)
+        #cursor.close()
+
+        #self.db.commit()
+
+        return item

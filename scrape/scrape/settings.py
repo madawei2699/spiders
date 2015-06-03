@@ -14,7 +14,8 @@ SPIDER_MODULES = ['scrape.spiders']
 NEWSPIDER_MODULE = 'scrape.spiders'
 ITEM_PIPELINES = {'scrape.pipelines.FBDBPipeline': 100,
                   'scrape.pipelines.WBDBPipeline': 200,
-                  'scrape.pipelines.NDUODBPipeline': 300}
+                  'scrape.pipelines.NDUODBPipeline': 300,
+                  'scrape.pipelines.RETAILMENOTDBPipeline': 400}
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'crawl (+http://www.yourdomain.com)'

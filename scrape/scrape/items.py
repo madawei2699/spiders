@@ -22,3 +22,10 @@ class WBItem(scrapy.Item):
 class NDUOItem(scrapy.Item):
     uid = scrapy.Field()
     downloads = scrapy.Field()
+
+class RETAILMENOTItem(scrapy.Item):
+    uid = scrapy.Field()
+    site = scrapy.Field()
+    offer_type = scrapy.Field()
+    offer_desc = scrapy.Field()
+    used_today = scrapy.Field()
