@@ -184,18 +184,18 @@ class RETAILMENOTDBPipeline(object):
         print 'Saving deal:', item['offer_desc'], ', from: ', item['site']
         print 'Timestamp: ', spider.timestamp
 
-        #query = """
-        #    INSERT INTO RETAILMENOT
-        #    (UID, Timestamp, Site, Offer_Type, Offer_Desc, Used_Today)
-        #    VALUES
-        #    ("%s", %d, "%s", "%s", "%s", %d);""" % (
-        #        item['uid'], spider.timestamp, item['site'],
-        #        item['offer_type'], item['offer_desc'], item['used_today'])
+        query = """
+            INSERT INTO RETAILMENOT
+            (UID, Timestamp, Site, OfferType, OfferDesc, UsedToday)
+            VALUES
+            ("%s", %d, "%s", "%s", "%s", %d);""" % (
+                item['uid'], spider.timestamp, item['site'],
+                item['offer_type'], item['offer_desc'], item['used_today'])
 
-        #cursor = self.db.cursor()
-        #cursor.execute(query)
-        #cursor.close()
+        cursor = self.db.cursor()
+        cursor.execute(query)
+        cursor.close()
 
-        #self.db.commit()
+        self.db.commit()
 
         return item
