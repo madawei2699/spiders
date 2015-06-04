@@ -8,5 +8,5 @@ echo Start crawling. Epoch is $EPOCH.
 /usr/local/bin/phantomjs /home/gjoliver/spiders/phantom/retailmenot.js $EPOCH
 
 # Scrape data and store in CloudSql.
-# cd /home/gjoliver/spiders/scrape
-# /usr/bin/scrapy crawl RETAILMENOT -a epoch=$EPOCH -a db_host=$1 -a db_user=$2 -a db_passwd=$3
+cd /home/gjoliver/spiders/scrape
+/usr/bin/scrapy crawl RETAILMENOT -a epoch=$EPOCH -a db_host=$1 -a db_user=$2 -a db_passwd=$3
