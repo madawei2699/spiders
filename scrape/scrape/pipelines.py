@@ -184,8 +184,6 @@ class RETAILMENOTDBPipeline(object):
         print 'Saving deal:', item['offer_desc'], ', from: ', item['site']
         print 'Timestamp: ', spider.timestamp
 
-        print item
-
         #query = """
         #    INSERT INTO RETAILMENOT
         #    (UID, Timestamp, Site, Offer_Type, Offer_Desc, Used_Today)

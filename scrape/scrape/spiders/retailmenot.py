@@ -12,18 +12,6 @@ LOCAL_FILE_SCHEMA = 'file://'
 ARCHIVE_PATH = '/home/gjoliver/archive/retailmenot/'
 
 
-def extractDownloads(response):
-    try:
-        text = response.xpath('//span[@class="count"]/text()').extract()[0]
-        match = re.search('^\d+', text.replace(',', ''))
-        if match:
-            return int(match.group(0))
-        else:
-            return 0
-    except (ValueError, IndexError):
-        return 0
-
-
 class RETAILMENOTPageSpider(scrapy.Spider):
     name = 'RETAILMENOT'
     allowed_domains = []
@@ -50,19 +38,26 @@ class RETAILMENOTPageSpider(scrapy.Spider):
                            for f in os.listdir(ARCHIVE_PATH + epoch)]
 
     def parse(self, response):
-        site = response.url.split('/')[-1]
-
         offers = response.xpath('//div[contains(@class, "offer")]')
         for offer in offers:
             try:
+                domain = offer.xpath('@data-storedomain').extract()[0]
+                offerid = offer.xpath('@data-offerid').extract()[0]
+                offertype = offer.xpath('@data-type').extract()[0]
                 desc = offer.xpath(
-                    './/contains(@class, "title")/a/text()]').extract()[0]
+                    './/h3[contains(@class, "title")]/a/text()').extract()[0]
+                used_today = int(offer.xpath(
+                    './/div[contains(@class, "info")]/text()').re(
+                        r'(\d+) People Used Today')[0])
 
                 item = RETAILMENOTItem(
-                    site=site,
-                    offer_desc=desc)
+                    uid=offerid,
+                    site=domain,
+                    offer_desc=desc,
+                    offer_type=offertype,
+                    used_today=used_today)
 
                 yield item
-            except IndexError:
+            except (ValueError, IndexError):
                 # Failed to extract something, give up.
                 continue
