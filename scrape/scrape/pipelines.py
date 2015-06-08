@@ -223,7 +223,7 @@ class SaveToCSVPipeline(object):
         # Write column labels.
         if not os.path.isfile(outfile_name):
             with open(outfile_name, 'w') as outfile:
-                writer = csv.writer(outfile)
+                writer = csv.writer(outfile, delimiter='|')
                 writer.writerow(['date', 'time'] + fields)
 
         with open(outfile_name, 'a') as outfile:
@@ -231,5 +231,5 @@ class SaveToCSVPipeline(object):
             time = dt.strftime('%H%M')
             values = [item[key] or '' for key in item.keys()]
 
-            writer = csv.writer(outfile)
+            writer = csv.writer(outfile, delimiter='|')
             writer.writerow([date, time] + values)
