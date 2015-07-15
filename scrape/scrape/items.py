@@ -23,12 +23,14 @@ class NDUOItem(scrapy.Item):
     uid = scrapy.Field()
     downloads = scrapy.Field()
 
+
 class RETAILMENOTItem(scrapy.Item):
     uid = scrapy.Field()
     site = scrapy.Field()
     offer_type = scrapy.Field()
     offer_desc = scrapy.Field()
     used_today = scrapy.Field()
+
 
 class PINItem(scrapy.Item):
     uid = scrapy.Field()
@@ -37,3 +39,10 @@ class PINItem(scrapy.Item):
     followers = scrapy.Field()
     following = scrapy.Field()
     likes = scrapy.Field()
+
+
+class INSTAItem(scrapy.Item):
+    uid = scrapy.Field()
+    posts = scrapy.Field()
+    followers = scrapy.Field()
+    following = scrapy.Field()
