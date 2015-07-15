@@ -211,7 +211,9 @@ class SaveToCSVPipeline(object):
             'WB': ['uid', 'following', 'followers'],
             'NDUO': ['uid', 'downloads'],
             'RETAILMENOT': [
-                'uid', 'site', 'offer_type', 'offer_desc', 'used_today']
+                'uid', 'site', 'offer_type', 'offer_desc', 'used_today'],
+            'PIN': [
+                'uid', 'boards', 'pins', 'followers', 'following', 'likes']
         }
 
     def process_item(self, item, spider):

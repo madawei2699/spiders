@@ -29,3 +29,11 @@ class RETAILMENOTItem(scrapy.Item):
     offer_type = scrapy.Field()
     offer_desc = scrapy.Field()
     used_today = scrapy.Field()
+
+class PINItem(scrapy.Item):
+    uid = scrapy.Field()
+    boards = scrapy.Field()
+    pins = scrapy.Field()
+    followers = scrapy.Field()
+    following = scrapy.Field()
+    likes = scrapy.Field()
