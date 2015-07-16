@@ -71,7 +71,7 @@ var processUid = function(uid, next) {
             console.log('Saving page: ' + url);
 
             fs.write('/home/gjoliver/archive/wb/' +
-                     epoch + '/' + uid.toLowerCase(),
+                     epoch + '/' + uid.replace('/', '-').toLowerCase(),
                      page.content,
                      'w');
             page.close();
