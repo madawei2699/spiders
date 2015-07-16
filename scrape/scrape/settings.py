@@ -12,10 +12,11 @@ BOT_NAME = 'xiaobai'
 
 SPIDER_MODULES = ['scrape.spiders']
 NEWSPIDER_MODULE = 'scrape.spiders'
-ITEM_PIPELINES = {'scrape.pipelines.FBDBPipeline': 100,
-                  'scrape.pipelines.WBDBPipeline': 200,
-                  'scrape.pipelines.NDUODBPipeline': 300,
-                  'scrape.pipelines.RETAILMENOTDBPipeline': 400,
+# Disable all the MySQL db pipelines, since it seems CSV files are all we need.
+ITEM_PIPELINES = {#'scrape.pipelines.FBDBPipeline': 100,
+                  #'scrape.pipelines.WBDBPipeline': 200,
+                  #'scrape.pipelines.NDUODBPipeline': 300,
+                  #'scrape.pipelines.RETAILMENOTDBPipeline': 400,
                   'scrape.pipelines.SaveToCSVPipeline': 500}
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
