@@ -18,9 +18,9 @@ def extractValue(response, class_name):
             '//span[contains(@class, "' + class_name + '")]/text()').extract()[0]
         if text:
             if text[-1] == 'k':
-                return int(text[:-1].strip().replace(',', '')) * 1000
+                return int(float(text[:-1].strip().replace(',', '')) * 1000)
             else:
-                return int(text.strip().replace(',', ''))
+                return int(float(text.strip().replace(',', '')))
         else:
             return 0
     except (ValueError, IndexError):
