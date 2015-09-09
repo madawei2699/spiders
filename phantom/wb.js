@@ -77,11 +77,11 @@ var processUid = function(uid, next) {
             page.close();
 
             next.apply();
-        // Wait randomly between 3 to 10 seconds for the page to
+        // Wait randomly between 60 to 120 seconds for the page to
         // actually render.
         // This delay also serves as a protection so we are not easily
         // detected as a scraper.
-        }, 3000 + (12000 * Math.random()));
+        }, 60000 + (60000 * Math.random()));
     });
 }
 
