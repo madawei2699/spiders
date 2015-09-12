@@ -14,8 +14,14 @@ ARCHIVE_PATH = '/home/gjoliver/archive/instagram/'
 
 def extractValue(response, class_name):
     try:
-        text = response.xpath(
-            '//span[contains(@class, "' + class_name + '")]/text()').extract()[0]
+        try:
+            text = response.xpath(
+                '//span[contains(@class, "' + class_name + '")]/@title').extract()[0]
+        except IndexError:
+            # Try raw text.
+            text = response.xpath(
+                '//span[contains(@class, "' + class_name + '")]/text()').extract()[0]
+
         if text:
             if text[-1] == 'k':
                 return int(float(text[:-1].strip().replace(',', '')) * 1000)
