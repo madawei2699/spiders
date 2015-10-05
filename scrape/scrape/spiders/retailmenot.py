@@ -9,7 +9,7 @@ import time
 
 
 LOCAL_FILE_SCHEMA = 'file://'
-ARCHIVE_PATH = '/home/gjoliver/archive/retailmenot/'
+ARCHIVE_PATH = '/archd/archive/retailmenot/'
 
 
 class RETAILMENOTPageSpider(scrapy.Spider):

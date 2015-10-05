@@ -9,7 +9,7 @@ import time
 
 
 LOCAL_FILE_SCHEMA = 'file://'
-ARCHIVE_PATH = '/home/gjoliver/archive/instagram/'
+ARCHIVE_PATH = '/archd/archive/instagram/'
 
 
 def extractValue(response, class_name):

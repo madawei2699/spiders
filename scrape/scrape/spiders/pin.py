@@ -9,7 +9,7 @@ import time
 
 
 LOCAL_FILE_SCHEMA = 'file://'
-ARCHIVE_PATH = '/home/gjoliver/archive/pinterest/'
+ARCHIVE_PATH = '/archd/archive/pinterest/'
 
 
 def extractValue(response, class_name):

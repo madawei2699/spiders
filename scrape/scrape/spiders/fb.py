@@ -6,7 +6,7 @@ import time
 
 
 LOCAL_FILE_SCHEMA = 'file://'
-ARCHIVE_PATH = '/home/gjoliver/archive/fb/'
+ARCHIVE_PATH = '/archd/archive/fb/'
 
 
 def extractBrother(response, text):

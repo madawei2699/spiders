@@ -9,7 +9,7 @@ import time
 
 
 LOCAL_FILE_SCHEMA = 'file://'
-ARCHIVE_PATH = '/home/gjoliver/archive/nduo/'
+ARCHIVE_PATH = '/archd/archive/nduo/'
 
 
 def extractDownloads(response):
