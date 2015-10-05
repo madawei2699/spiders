@@ -31,7 +31,7 @@ var processUrl = function(url, next) {
             console.log('Saving page: ' + url);
 
             var uid = url;
-            fs.write('/home/gjoliver/archive/retailmenot/' +
+            fs.write('/archd/archive/retailmenot/' +
                      epoch + '/' + uid.toLowerCase(),
                      page.content,
                      'w');

@@ -25,7 +25,7 @@ var processUid = function(uid, next) {
         window.setTimeout(function () {
             console.log('Saving page: ' + url);
 
-            fs.write('/home/gjoliver/archive/fb/' +
+            fs.write('/archd/archive/fb/' +
                      epoch + '/' + uid.toLowerCase(),
                      page.content,
                      'w');

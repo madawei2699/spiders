@@ -70,7 +70,7 @@ var processUid = function(uid, next) {
         window.setTimeout(function () {
             console.log('Saving page: ' + url);
 
-            fs.write('/home/gjoliver/archive/wb/' +
+            fs.write('/archd/archive/wb/' +
                      epoch + '/' + uid.replace('/', '-').toLowerCase(),
                      page.content,
                      'w');
