@@ -26,7 +26,8 @@ var processUrl = function(url, next) {
 
             var uid = url
                 .replace('http://www.nduoa.com/apk/detail/', '')
-                .replace('http://www.nduoa.com/package/detail/');
+                .replace('http://www.nduoa.com/package/detail/')
+                .replace('undefined', '');
             fs.write('/archd/archive/nduo/' +
                      epoch + '/' + uid.toLowerCase(),
                      page.content,
