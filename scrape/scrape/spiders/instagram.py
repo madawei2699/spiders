@@ -12,6 +12,24 @@ LOCAL_FILE_SCHEMA = 'file://'
 ARCHIVE_PATH = '/archd/archive/instagram/'
 
 
+def extractBrother(response, text):
+    regexp = '//span[contains(text(), "%s")]/preceding-sibling::*/text()' % text
+    try:
+        text = response.xpath(regexp).extract()[0].replace(',', '')
+    except (ValueError, IndexError):
+        return 0
+
+    if text:
+        if text[-1] == 'm':
+            return int(float(text[:-1].strip().replace(',', '')) * 1000000)
+        elif text[-1] == 'k':
+            return int(float(text[:-1].strip().replace(',', '')) * 1000)
+        else:
+            return int(float(text.strip().replace(',', '')))
+    else:
+        return 0
+
+
 def extractValue(response, class_name):
     try:
         try:
@@ -61,7 +79,7 @@ class INSTAPageSpider(scrapy.Spider):
     def parse(self, response):
         item = INSTAItem(
             uid=response.url.split('/')[-1],
-            posts=extractValue(response, 'PostsStatistic'),
-            followers=extractValue(response, 'FollowedByStatistic'),
-            following=extractValue(response, 'FollowsStatistic'))
+            posts=extractBrother(response, ' posts'),
+            followers=extractBrother(response, ' followers'),
+            following=extractBrother(response, ' following'))
         yield item
