@@ -12,7 +12,7 @@ LOCAL_FILE_SCHEMA = 'file://'
 ARCHIVE_PATH = '/archd/archive/instagram/'
 
 
-def extractBrother(response, text):
+def extractBrotherText(response, text):
     regexp = '//span[contains(text(), "%s")]/preceding-sibling::*/text()' % text
     try:
         text = response.xpath(regexp).extract()[0].replace(',', '')
@@ -30,24 +30,21 @@ def extractBrother(response, text):
         return 0
 
 
-def extractValue(response, class_name):
+def extractBrotherTitle(response, text):
+    regexp = '//span[contains(text(), "%s")]/preceding-sibling::*/@title' % text
     try:
-        try:
-            text = response.xpath(
-                '//span[contains(@class, "' + class_name + '")]/@title').extract()[0]
-        except IndexError:
-            # Try raw text.
-            text = response.xpath(
-                '//span[contains(@class, "' + class_name + '")]/text()').extract()[0]
-
-        if text:
-            if text[-1] == 'k':
-                return int(float(text[:-1].strip().replace(',', '')) * 1000)
-            else:
-                return int(float(text.strip().replace(',', '')))
-        else:
-            return 0
+        text = response.xpath(regexp).extract()[0].replace(',', '')
     except (ValueError, IndexError):
+        return 0
+
+    if text:
+        if text[-1] == 'm':
+            return int(float(text[:-1].strip().replace(',', '')) * 1000000)
+        elif text[-1] == 'k':
+            return int(float(text[:-1].strip().replace(',', '')) * 1000)
+        else:
+            return int(float(text.strip().replace(',', '')))
+    else:
         return 0
 
 
@@ -79,7 +76,7 @@ class INSTAPageSpider(scrapy.Spider):
     def parse(self, response):
         item = INSTAItem(
             uid=response.url.split('/')[-1],
-            posts=extractBrother(response, ' posts'),
-            followers=extractBrother(response, ' followers'),
-            following=extractBrother(response, ' following'))
+            posts=extractBrotherText(response, ' posts'),
+            followers=extractBrotherTitle(response, ' followers'),
+            following=extractBrotherText(response, ' following'))
         yield item
