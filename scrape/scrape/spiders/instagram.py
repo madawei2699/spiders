@@ -13,7 +13,7 @@ ARCHIVE_PATH = '/archd/archive/instagram/'
 
 
 def extractBrotherText(response, text):
-    regexp = '//span[contains(text(), "%s")]/preceding-sibling::*/text()' % text
+    regexp = '//span[contains(text(), "%s")]/span[1]/text()' % text
     try:
         text = response.xpath(regexp).extract()[0].replace(',', '')
     except (ValueError, IndexError):
@@ -31,7 +31,7 @@ def extractBrotherText(response, text):
 
 
 def extractBrotherTitle(response, text):
-    regexp = '//span[contains(text(), "%s")]/preceding-sibling::*/@title' % text
+    regexp = '//span[contains(text(), "%s")]/span[1]/@title' % text
     try:
         text = response.xpath(regexp).extract()[0].replace(',', '')
     except (ValueError, IndexError):

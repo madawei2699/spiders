@@ -49,5 +49,6 @@ class WBPageSpider(scrapy.Spider):
         item = WBItem(
             uid=response.url.split('/')[-1],
             following=extractBrother(response, u'关注'),
-            followers=extractBrother(response, u'粉丝'))
+            followers=extractBrother(response, u'粉丝'),
+            posts=extractBrother(response, u'微博')),
         yield item
