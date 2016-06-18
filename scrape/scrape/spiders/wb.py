@@ -50,5 +50,5 @@ class WBPageSpider(scrapy.Spider):
             uid=response.url.split('/')[-1],
             following=extractBrother(response, u'关注'),
             followers=extractBrother(response, u'粉丝'),
-            posts=extractBrother(response, u'微博')),
+            posts=extractBrother(response, u'微博'))
         yield item
