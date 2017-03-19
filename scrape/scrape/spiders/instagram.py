@@ -79,4 +79,5 @@ class INSTAPageSpider(scrapy.Spider):
             posts=extractBrotherText(response, ' posts'),
             followers=extractBrotherTitle(response, ' followers'),
             following=extractBrotherText(response, ' following'))
+        print item
         yield item
