@@ -63,15 +63,15 @@ var processUid = function(uid, next) {
             return;
         }
 
-	console.log(Date().toString() + ': Saving page: ' + url);
-
-	fs.write('/Users/jungong/' +
-		 epoch + '/' + uid.replace('/', '-').toLowerCase(),
-		 page.content,
-		 'w');
-	page.close();
-
         window.setTimeout(function () {
+	    console.log(Date().toString() + ': Saving page: ' + url);
+
+	    fs.write('/archd/archive/wb/' +
+		     epoch + '/' + uid.replace('/', '-').toLowerCase(),
+		     page.content,
+		     'w');
+	    page.close();
+
             next.apply();
             // Wait randomly between 60 to 120 seconds for the page to
             // actually render.
