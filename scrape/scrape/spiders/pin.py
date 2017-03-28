@@ -12,10 +12,10 @@ LOCAL_FILE_SCHEMA = 'file://'
 ARCHIVE_PATH = '/archd/archive/pinterest/'
 
 
-def extractValue(response, class_name):
+def extractValue(response, name):
     try:
         text = response.xpath(
-            '//div[contains(@class, "' + class_name + '")]/span[@class="value"]/text()').extract()[0]
+            '//meta[contains(@name, "' + name + '")]/@content').extract()[0]
         if text:
             return int(text.strip().replace(',', ''))
         else:
@@ -52,7 +52,7 @@ class PINPageSpider(scrapy.Spider):
     def parse(self, response):
         item = PINItem(
             uid=response.url.split('/')[-1],
-            boards=extractValue(response, 'BoardCount'),
-            followers=extractValue(response, 'FollowerCount'),
-            following=extractValue(response, 'FollowingCount'))
+            boards=extractValue(response, 'pinterestapp:boards'),
+            followers=extractValue(response, 'pinterestapp:follower'),
+            following=extractValue(response, 'pinterestapp:following'))
         yield item
