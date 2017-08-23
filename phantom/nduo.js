@@ -3,13 +3,12 @@ var args = system.args;
 
 var fs = require('fs');
 
-var urls = fs.read('/home/gjoliver/urls/nduo-url').split('\n');
-
 var epoch = args[1];
+var url = args[2];
 
-var processUrl = function(url, next) {
-    if (url.replace(/ /g, '') == '') {
-        next.apply();
+var processUrl = function(url) {
+    if (url === undefined || url === null || url.replace(/ /g, '') == '') {
+	phantom.exit();
         return;
     }
 
@@ -17,7 +16,7 @@ var processUrl = function(url, next) {
     page.open(url, function (status) {
         if (status === 'fail') {
             console.log('Failed to fetch page: ' + url);
-            next.apply();
+	    phantom.exit();
             return;
         }
 
@@ -34,7 +33,7 @@ var processUrl = function(url, next) {
                      'w');
             page.close();
 
-            next.apply();
+	    phantom.exit();
         // Wait randomly between 3 to 10 seconds for the page to
         // actually render.
         // This delay also serves as a protection so we are not easily
@@ -43,14 +42,4 @@ var processUrl = function(url, next) {
     });
 }
 
-var crawlNext = function() {
-    if (urls.length > 0) {
-        var url = urls[0];
-        urls.splice(0, 1);
-        processUrl(url, crawlNext);
-    } else {
-        phantom.exit();
-    }
-}
-
-crawlNext();
+processUrl(url);

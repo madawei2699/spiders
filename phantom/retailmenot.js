@@ -3,18 +3,17 @@ var args = system.args;
 
 var fs = require('fs');
 
-var urls = fs.read('/home/gjoliver/urls/retailmenot-url').split('\n');
-
 var epoch = args[1];
+var url = args[2];
 
 var USER_AGENT =
     'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 ' +
     '(KHTML, like Gecko) Chrome/42.0.2311.90 Safari/537.36 ' +
     'OPR/29.0.1795.47';
 
-var processUrl = function(url, next) {
-    if (url.replace(/ /g, '') == '') {
-        next.apply();
+var processUrl = function(url) {
+    if (url === undefined || url === null || url.replace(/ /g, '') == '') {
+	phantom.exit();
         return;
     }
 
@@ -23,7 +22,7 @@ var processUrl = function(url, next) {
     page.open('http://www.retailmenot.com/view/' + url, function (status) {
         if (status === 'fail') {
             console.log('Failed to fetch page: ' + url);
-            next.apply();
+	    phantom.exit();
             return;
         }
 
@@ -37,7 +36,7 @@ var processUrl = function(url, next) {
                      'w');
             page.close();
 
-            next.apply();
+	    phantom.exit();
         // Wait randomly between 1 to 3 mins for the page to
         // actually render.
         // Use especially longer timeout since retailmenot seems to have
@@ -48,14 +47,4 @@ var processUrl = function(url, next) {
     });
 }
 
-var crawlNext = function() {
-    if (urls.length > 0) {
-        var url = urls[0];
-        urls.splice(0, 1);
-        processUrl(url, crawlNext);
-    } else {
-        phantom.exit();
-    }
-}
-
-crawlNext();
+processUrl(url);

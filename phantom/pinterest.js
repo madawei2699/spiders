@@ -4,7 +4,7 @@ var args = system.args;
 var fs = require('fs');
 
 var epoch = args[1];
-var uid = args[2]
+var uid = args[2];
 
 var processUid = function(uid) {    
     if (uid === undefined || uid === null || uid.replace(/ /g, '') == '') {

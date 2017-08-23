@@ -3,13 +3,12 @@ var args = system.args;
 
 var fs = require('fs');
 
-var uids = fs.read('/home/gjoliver/urls/uid-list-instagram').split('\n');
-
 var epoch = args[1];
+var uid = args[2];
 
-var processUid = function(uid, next) {
-    if (uid.replace(/ /g, '') == '') {
-        next.apply();
+var processUid = function(uid) {
+    if (uid === undefined || uid === null || uid.replace(/ /g, '') == '') {
+        phantom.exit();
         return;
     }
 
@@ -19,7 +18,7 @@ var processUid = function(uid, next) {
     page.open(url, function (status) {
         if (status === 'fail') {
             console.log('Failed to fetch page: ' + uid);
-            next.apply();
+            phantom.exit();
             return;
         }
 
@@ -32,7 +31,7 @@ var processUid = function(uid, next) {
                      'w');
             page.close();
 
-            next.apply();
+            phantom.exit();
         // Wait randomly between 3 to 10 seconds for the page to
         // actually render.
         // This delay also serves as a protection so we are not easily
@@ -41,14 +40,4 @@ var processUid = function(uid, next) {
     });
 }
 
-var crawlNext = function() {
-    if (uids.length > 0) {
-        var uid = uids[0];
-        uids.splice(0, 1);
-        processUid(uid, crawlNext);
-    } else {
-        phantom.exit();
-    }
-}
-
-crawlNext();
+processUid(uid);

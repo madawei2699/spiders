@@ -5,7 +5,10 @@ EPOCH=$(date +"%Y%m%d%H%M")
 echo Start crawling. Epoch is $EPOCH.
 
 # Crawl page.
-/usr/local/bin/phantomjs /home/gjoliver/spiders/phantom/nduo.js $EPOCH
+while read LINE; do
+    echo $LINE
+    /usr/local/bin/phantomjs /home/gjoliver/spiders/phantom/nduo.js $EPOCH $LINE
+done < /home/gjoliver/urls/nduo-url
 
 # Scrape data and store in CloudSql.
 cd /home/gjoliver/spiders/scrape
