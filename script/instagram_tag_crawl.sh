@@ -4,7 +4,7 @@ EPOCH=$(date +"%Y%m%d%H%M")
 
 echo Start crawling. Epoch is $EPOCH.
 
-mkdir /archd/archive/instagram_tag/$EPOCH
+mkdir -p /archd/archive/instagram_tag/$EPOCH
 
 # Crawl page.
 python /home/gjoliver/spiders/phantom/instagram_tag.py -l /home/gjoliver/urls/uid-list-instagram -k /home/gjoliver/insta_cookies -o /archd/archive/instagram_tag/$EPOCH
