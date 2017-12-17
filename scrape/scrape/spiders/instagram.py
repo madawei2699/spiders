@@ -13,7 +13,7 @@ ARCHIVE_PATH = '/archd/archive/instagram/'
 
 
 def extractPictures(response):
-    regexp = '//a[starts-with(@href, "/p/")]'
+    regexp = '//a[starts-with(@href, "/p/")]/@href'
     try:
         pics = response.xpath(regexp).extract()
     except (ValueError, IndexError):
@@ -24,6 +24,8 @@ def extractPictures(response):
         idx = p.find('?')
         if idx > 0:
             cleaned_pics.append(p[:idx])
+        elif len(p) > 0:
+            cleaned_pics.append(p)
 
     return cleaned_pics
 

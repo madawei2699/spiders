@@ -241,8 +241,8 @@ class SaveToCSVPipeline(object):
         if spider.name == 'INSTA':
             # Write the special instagram picture to crawl file.
             with open('/home/j/data/insta_pics_tmp', 'a') as outfile:
-                if item['posts'] > 500 or item['followers'] < 100000:
-                    continue
-
                 for p in item['pics']:
-                    outfile.write(item['uid'] + '\t' + p)
+                    if item['posts'] > 500 or item['followers'] < 100000:
+                        continue
+
+                    outfile.write(item['uid'] + '\t' + p + '\n')
