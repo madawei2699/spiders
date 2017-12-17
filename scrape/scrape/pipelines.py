@@ -233,7 +233,16 @@ class SaveToCSVPipeline(object):
         with open(outfile_name, 'a') as outfile:
             date = dt.strftime('%Y%m%d')
             time = dt.strftime('%H%M')
-            values = [item[key] or '' for key in item.keys()]
+            values = [item[key] or '' for key in item.keys() if key != 'pics']
 
             writer = csv.writer(outfile, delimiter='|')
             writer.writerow([date, time] + values)
+
+        if spider.name == 'INSTA':
+            # Write the special instagram picture to crawl file.
+            with open('/home/j/data/insta_pics_tmp', 'a') as outfile:
+                if item['posts'] > 500 or item['followers'] < 100000:
+                    continue
+
+                for p in item['pics']:
+                    outfile.write(item['uid'] + '\t' + p)

@@ -47,3 +47,4 @@ class INSTAItem(scrapy.Item):
     posts = scrapy.Field()
     followers = scrapy.Field()
     following = scrapy.Field()
+    pics = scrapy.Field()

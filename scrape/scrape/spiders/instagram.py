@@ -12,6 +12,22 @@ LOCAL_FILE_SCHEMA = 'file://'
 ARCHIVE_PATH = '/archd/archive/instagram/'
 
 
+def extractPictures(response):
+    regexp = '//a[starts-with(@href, "/p/")]'
+    try:
+        pics = response.xpath(regexp).extract()
+    except (ValueError, IndexError):
+        return []
+
+    cleaned_pics = []
+    for p in pics:
+        idx = p.find('?')
+        if idx > 0:
+            cleaned_pics.append(p[:idx])
+
+    return cleaned_pics
+
+
 def extractBrotherText(response, text):
     regexp = '//span[contains(text(), "%s")]/span[1]/text()' % text
     try:
@@ -78,6 +94,7 @@ class INSTAPageSpider(scrapy.Spider):
             uid=response.url.split('/')[-1],
             posts=extractBrotherText(response, ' posts'),
             followers=extractBrotherTitle(response, ' followers'),
-            following=extractBrotherText(response, ' following'))
+            following=extractBrotherText(response, ' following'),
+            pics=extractPictures(response))
         print item
         yield item
