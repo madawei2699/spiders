@@ -48,3 +48,9 @@ class INSTAItem(scrapy.Item):
     followers = scrapy.Field()
     following = scrapy.Field()
     pics = scrapy.Field()
+
+class INSTAPicItem(scrapy.Item):
+    acct = scrapy.Field()
+    uid = scrapy.Field()
+    likes = scrapy.Field()
+    views = scrapy.Field()

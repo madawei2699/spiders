@@ -27,7 +27,7 @@ var processUid = function(uid) {
             console.log('Saving page: ' + account + ' ' + uid);
 
             fs.write('/archd/archive/instagram_pics/' +
-                     epoch + '/' + account + uid.toLowerCase().replace(/\//g, '-'),
+                     epoch + '/' + account + uid.replace(/\//g, '-'),
                      page.content,
                      'w');
             page.close();

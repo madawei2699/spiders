@@ -17,3 +17,7 @@ done < /home/j/data/$LIST_NAME
 if [ -f /home/j/data/$LIST_NAME ]; then
     rm /home/j/data/$LIST_NAME
 fi
+
+# Scrape data and store in CloudSql.
+cd /home/gjoliver/spiders/scrape
+/usr/bin/scrapy crawl INSTA_PICS -a epoch=$EPOCH -a db_host=$1 -a db_user=$2 -a db_passwd=$3

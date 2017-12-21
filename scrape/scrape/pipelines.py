@@ -215,7 +215,9 @@ class SaveToCSVPipeline(object):
             'PIN': [
                 'uid', 'boards', 'pins', 'followers', 'following', 'likes'],
             'INSTA': [
-                'uid', 'posts', 'followers', 'following']
+                'uid', 'posts', 'followers', 'following'],
+            'INSTA_PICS': [
+                'acct', 'uid', 'likes', 'views']
         }
 
     def process_item(self, item, spider):
