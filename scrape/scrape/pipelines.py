@@ -235,7 +235,7 @@ class SaveToCSVPipeline(object):
         with open(outfile_name, 'a') as outfile:
             date = dt.strftime('%Y%m%d')
             time = dt.strftime('%H%M')
-            values = [item[key] or '' for key in item.keys() if key != 'pics']
+            values = [item[key] or '' for key in fields if key != 'pics']
 
             writer = csv.writer(outfile, delimiter='|')
             writer.writerow([date, time] + values)
