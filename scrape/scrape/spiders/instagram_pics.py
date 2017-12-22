@@ -78,11 +78,11 @@ class INSTAPicsSpider(scrapy.Spider):
 
     def parse(self, response):
         fn = response.url.split('/')[-1]
-        ps = fn.split('-')
+        ps = fn.strip('-').split('-')
         item = INSTAPicItem(
             acct=ps[0],
-            uid=ps[-2],
-            likes=extractLikes(response),
+            uid=ps[-1],
+            likes=extractBrotherText(response, ' likes') or extractLikes(response),
             views=extractBrotherText(response, ' views'))
         print item
         yield item
