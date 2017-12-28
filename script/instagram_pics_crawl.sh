@@ -1,6 +1,9 @@
 #!/bin/bash
 
 EPOCH=$(date +"%Y%m%d%H%M")
+DB_HOST=$1
+DB_USER=$2
+DB_PASSWD=$3
 LIST_NAME=insta_pics_$EPOCH
 
 echo Start crawling. Epoch is $LIST_NAME.
@@ -20,4 +23,4 @@ fi
 
 # Scrape data and store in CloudSql.
 cd /home/gjoliver/spiders/scrape
-/usr/bin/scrapy crawl INSTA_PICS -a epoch=$EPOCH -a db_host=$1 -a db_user=$2 -a db_passwd=$3
+/usr/bin/scrapy crawl INSTA_PICS -a epoch=$EPOCH -a db_host=$DB_HOST -a db_user=$DB_USER -a db_passwd=$DB_PASSWD
