@@ -213,7 +213,7 @@ class SaveToCSVPipeline(object):
             'RETAILMENOT': [
                 'uid', 'site', 'offer_type', 'offer_desc', 'used_today'],
             'PIN': [
-                'uid', 'boards', 'pins', 'followers', 'following', 'likes'],
+                'uid', 'boards', 'followers', 'following'],
             'INSTA': [
                 'uid', 'posts', 'followers', 'following'],
             'INSTA_PICS': [

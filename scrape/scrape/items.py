@@ -36,10 +36,8 @@ class RETAILMENOTItem(scrapy.Item):
 class PINItem(scrapy.Item):
     uid = scrapy.Field()
     boards = scrapy.Field()
-    pins = scrapy.Field()
     followers = scrapy.Field()
     following = scrapy.Field()
-    likes = scrapy.Field()
 
 
 class INSTAItem(scrapy.Item):
