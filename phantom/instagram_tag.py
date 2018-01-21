@@ -1,3 +1,4 @@
+import cookielib
 import optparse
 import os
 import random
@@ -7,25 +8,21 @@ import zlib
 
 URL = 'https://www.instagram.com/web/search/topsearch/?context=blended&query=%%23%s'
 
-REQUEST_HEADERS = {
-    'accept': '*/*',
-    'accept-encoding': 'gzip, deflate, br',
-    'accept-language': 'en-US,zh-CN;q=0.8',
-    'referer': 'https://www.instagram.com/',
-    'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36',
-    'x-requested-with': 'XMLHttpRequest'
-}
+REQUEST_HEADERS = [
+    ('Accept', '*/*'),
+    ('Accept-encoding', 'gzip, deflate, br'),
+    ('Accept-language', 'en-US,zh-CN;q=0.8'),
+    ('Referer', 'https://www.instagram.com/'),
+    ('User-agent', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36'),
+    ('x-requested-with', 'XMLHttpRequest')
+]
 
 
-def fetch_one(tag, cookies, out_file):
+def fetch_one(tag, opener, out_file):
     print 'Fetching ... ', tag
     try:
-        REQUEST_HEADERS['cookie'] = cookies % int(time.time())
-        request = urllib2.Request(URL % tag, headers=REQUEST_HEADERS)
-        data = urllib2.urlopen(request).read()
-
+        data = opener.open(URL % tag).read()
         json = zlib.decompress(data, 16 + zlib.MAX_WBITS)
-
         with open(out_file, 'w') as f:
             f.write(json)
     except Exception as e:
@@ -33,18 +30,22 @@ def fetch_one(tag, cookies, out_file):
 
 
 def fetch(tag_list, cookie_file, out_dir):
-    cookies = ''
-    with open(cookie_file, 'r') as f:
-        cookies = f.read().strip()
+    cookiejar = cookielib.LWPCookieJar()
+    cookiejar.load(cookie_file)
+    opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cookiejar))
+
+    opener.addheaders = REQUEST_HEADERS
 
     with open(tag_list, 'r') as f:
         for l in f.readlines():
             tag = l.strip()
 
-            fetch_one(tag, cookies, os.path.join(out_dir, tag))
+            fetch_one(tag, opener, os.path.join(out_dir, tag))
 
             # Sleep anywhere between 60 to 90 seconds.
             time.sleep(60 + int(30 * random.random()))
+
+    cookiejar.save(cookie_file)
 
 
 if __name__ == '__main__':
