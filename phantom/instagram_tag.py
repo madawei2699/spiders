@@ -42,8 +42,8 @@ def fetch(tag_list, cookie_file, out_dir):
 
             fetch_one(tag, opener, os.path.join(out_dir, tag))
 
-            # Sleep anywhere between 60 to 90 seconds.
-            time.sleep(60 + int(30 * random.random()))
+            # Sleep anywhere between 30 to 60 seconds.
+            time.sleep(30 + int(30 * random.random()))
 
     cookiejar.save(cookie_file)
 
